@@ -32,9 +32,7 @@ fun SignInScreen(
         (isEmailValid && (email != "") && isPasswordValid && (password != ""))
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 80.dp, vertical = 48.dp),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Sign In")

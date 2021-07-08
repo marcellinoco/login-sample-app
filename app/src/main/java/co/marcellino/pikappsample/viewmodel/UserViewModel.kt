@@ -14,7 +14,7 @@ class UserViewModel : ViewModel() {
         currentUser = user
     }
 
-    fun attemptSignIn(email: String, password: String): Boolean {
+    suspend fun attemptSignIn(email: String, password: String): Boolean {
         return if (Authentication.signIn(email = email, password = password)) {
             currentUser = User(email = email, password = password)
             true
