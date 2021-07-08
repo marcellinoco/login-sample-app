@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.marcellino.pikappsample.view.SignInScreen
+import co.marcellino.pikappsample.view.SignUpScreen
 import co.marcellino.pikappsample.view.WelcomeScreen
 import co.marcellino.pikappsample.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
@@ -58,6 +59,23 @@ fun BaseAppScreen(userViewModel: UserViewModel) {
                         }
                     },
                     navigateSignUp = { navController.navigate("SignUp") }
+                )
+            }
+
+            composable("SignUp") {
+                SignUpScreen(
+                    onSignUp = { email, password ->
+                        composableScope.launch {
+                            Log.d("SignUpScreen", "Signing up, loading...")
+
+                            if (userViewModel.attemptSignUp(email = email, password = password)) {
+                                Log.d("SignUpScreen", "User created!")
+                                navController.navigate("SignIn")
+                            } else {
+                                Log.d("SignUpScreen", "Failed to sign up!")
+                            }
+                        }
+                    }
                 )
             }
 

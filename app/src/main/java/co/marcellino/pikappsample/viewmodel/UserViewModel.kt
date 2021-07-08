@@ -10,13 +10,20 @@ import co.marcellino.pikappsample.utils.Authentication
 class UserViewModel : ViewModel() {
     var currentUser by mutableStateOf<User?>(null)
 
-    fun setUser(user: User?) {
+    private fun setUser(user: User?) {
         currentUser = user
     }
 
     suspend fun attemptSignIn(email: String, password: String): Boolean {
         return if (Authentication.signIn(email = email, password = password)) {
-            currentUser = User(email = email, password = password)
+            setUser(User(email = email, password = password))
+            true
+        } else false
+    }
+
+    suspend fun attemptSignUp(email: String, password: String): Boolean {
+        return if (Authentication.signUp(email = email, password = password)) {
+            setUser(User(email = email, password = password))
             true
         } else false
     }

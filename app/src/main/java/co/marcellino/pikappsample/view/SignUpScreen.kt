@@ -1,27 +1,22 @@
 package co.marcellino.pikappsample.view
 
-import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SignInScreen(
-    onSignIn: (String, String) -> Unit,
-    navigateSignUp: () -> Unit
+fun SignUpScreen(
+    onSignUp: (String, String) -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var isEmailValid by remember { mutableStateOf(true) }
@@ -29,14 +24,14 @@ fun SignInScreen(
     var password by remember { mutableStateOf("") }
     var isPasswordValid by remember { mutableStateOf(true) }
 
-    val isSignInEnabled: Boolean =
+    val isSignUpEnabled: Boolean =
         (isEmailValid && (email != "") && isPasswordValid && (password != ""))
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Sign In")
+        Text("Create Account")
 
         OutlinedTextField(
             value = email,
@@ -63,33 +58,13 @@ fun SignInScreen(
             modifier = Modifier.padding(top = 8.dp)
         )
 
-        ClickableText(
-            text = AnnotatedString("Forgot password?"),
-            onClick = {
-                Log.d("SignInScreen", "Password retrieval system not implemented!")
-            },
-
-            modifier = Modifier.padding(top = 16.dp),
-        )
-
         Button(
-            onClick = { onSignIn(email, password) },
-            enabled = isSignInEnabled,
+            onClick = { onSignUp(email, password) },
+            enabled = isSignUpEnabled,
 
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 32.dp)
-        ) {
-            Text("Sign In")
-        }
-
-        Text("or", modifier = Modifier.padding(top = 16.dp))
-
-        OutlinedButton(
-            onClick = navigateSignUp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
         ) {
             Text("Sign Up")
         }
